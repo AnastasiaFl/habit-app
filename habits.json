@@ -1,0 +1,76 @@
+{
+    "habits": [
+        {
+            "id": "1",
+            "task": "Workout",
+            "createdAt": "2023-11-01T13:55:22.407898",
+            "period": "1",
+            "checkedHistoryRecords": [
+                {
+                    "occurredAt": "2023-11-01T13:55:22.407898",
+                    "streak": "1"
+                },
+                {
+                    "occurredAt": "2023-11-01T13:55:22.407898",
+                    "streak": "8"
+                },
+                {
+                    "occurredAt": "2023-11-02T12:52:54.631976",
+                    "streak": "9"
+                }
+            ]
+        },
+        {
+            "id": "2",
+            "task": "Water plants",
+            "createdAt": "2023-11-01T13:55:39.335247",
+            "period": "2",
+            "checkedHistoryRecords": [
+                {
+                    "occurredAt": "2023-10-11T13:55:39.335247",
+                    "streak": "1"
+                },
+                {
+                    "occurredAt": "2023-10-26T10:42:45.435388",
+                    "streak": "1"
+                },
+                {
+                    "occurredAt": "2023-10-24T10:43:07.717078",
+                    "streak": "2"
+                },
+                {
+                    "occurredAt": "2023-11-02T12:58:06.219970",
+                    "streak": "3"
+                }
+            ]
+        },
+        {
+            "id": "3",
+            "task": "Brush my teeth",
+            "createdAt": "2023-11-01 13:46:21.594619",
+            "period": "2",
+            "checkedHistoryRecords": [
+                {
+                    "occurredAt": "2023-10-25T13:55:22.407898",
+                    "streak": "2"
+                }
+            ]
+        },
+        {
+            "id": "4",
+            "task": "Wake up early in the morning",
+            "createdAt": "2023-11-02T11:23:23.956913",
+            "period": "1",
+            "checkedHistoryRecords": [
+            ]
+        },
+        {
+            "id": "5",
+            "task": "Call parents",
+            "createdAt": "2023-11-02T11:26:17.683702",
+            "period": "2",
+            "checkedHistoryRecords": [
+            ]
+        }
+    ]
+}
