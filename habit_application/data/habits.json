@@ -61,8 +61,7 @@
             "task": "Wake up early in the morning",
             "createdAt": "2023-11-02T11:23:23.956913",
             "period": "1",
-            "checkedHistoryRecords": [
-            ]
+            "checkedHistoryRecords": []
         },
         {
             "id": "5",
@@ -70,6 +69,22 @@
             "createdAt": "2023-11-02T11:26:17.683702",
             "period": "2",
             "checkedHistoryRecords": [
+                {
+                    "occurredAt": "2023-10-25T13:55:22.407898",
+                    "streak": "1"
+                }
+            ]
+        },
+        {
+            "id": "6",
+            "task": "Test Habit",
+            "createdAt": "2023-11-08T14:30:36.556157",
+            "period": "1",
+            "checkedHistoryRecords": [
+                {
+                    "occurredAt": "2023-10-25T13:55:22.407898",
+                    "streak": "1"
+                }
             ]
         }
     ]

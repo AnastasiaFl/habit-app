@@ -1,4 +1,4 @@
-from cli_client import Client
+from habit_application.cli_client import Client
 
 if __name__ == '__main__':
     """

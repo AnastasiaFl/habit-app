@@ -1,6 +1,6 @@
-from checked_history_record import CheckedHistoryRecord
-from habit import Habit
-from file_processor import FileProcessor
+from habit_application.checked_history_record import CheckedHistoryRecord
+from habit_application.habit import Habit
+from habit_application.file_processor import FileProcessor
 from datetime import datetime
 
 

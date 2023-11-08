@@ -1,4 +1,4 @@
-import analytics_processor
+from habit_application import analytics_processor
 from habit_processor import HabitProcessor
 
 

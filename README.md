@@ -10,24 +10,35 @@ Brief description of your Python project.
   - [Installation](#installation)
 - [Usage](#usage)
 - [Running Tests](#running-tests)
-- [Contributing](#contributing)
-- [License](#license)
 
 ## Project Description
 
-Explain the purpose and goals of your project. Provide a high-level overview of what the project does and why it's useful.
+The purpose of this project is to provide a user a habit tracking application. Here, a user can create new habits, 
+check-off and delete them, collect useful analytics.
 
 ## Getting Started
 
 ### Prerequisites
 
-List any prerequisites that someone new to the project might need to set up. For example, Python version, packages, or external tools.
+Python version = 3.7 or higher
+, packages, or external tools.
 
 ### Installation
 
-Explain how to install and set up your project. You can include installation steps, such as:
+To install and set up the project, follow next steps:
 
 1. Clone the repository:
 
    ```sh
-   git clone https://github.com/yourusername/projectname.git
+   git clone https://github.com/AnastasiaFl/habit-app.git
+
+## Usage
+Provide instructions on how to use your project. Include code examples or explanations of how to interact with your project.
+
+## Running Tests
+Explain how to run the project's unit tests. Include any test commands and requirements.
+
+For example, if you're using unittest, you can run tests with:
+
+   ```sh
+   python -m unittest discover tests

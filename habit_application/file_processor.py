@@ -13,7 +13,7 @@ class FileProcessor:
 
         :param content: The content to write to the file.
         """
-        with open('habits.json', 'w') as file:
+        with open('habit_application/data/habits.json', 'w') as file:
             # Serialize the content to JSON format and write it to the file with proper indentation.
             json.dump(content, file, indent=4)
 
@@ -24,7 +24,7 @@ class FileProcessor:
 
         :return: The content read from the file.
         """
-        with open('habits.json', 'r') as file:
+        with open('habit_application/data/habits.json', 'r') as file:
             # Deserialize the JSON content from the file and return it.
             habits_json = json.load(file)
             return habits_json
