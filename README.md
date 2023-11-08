@@ -1,6 +1,4 @@
-# Project Name
-
-Brief description of your Python project.
+# Habit tracking application
 
 ## Table of Contents
 
@@ -20,8 +18,7 @@ check-off and delete them, collect useful analytics.
 
 ### Prerequisites
 
-Python version = 3.7 or higher
-, packages, or external tools.
+Python version <= 3.7
 
 ### Installation
 
@@ -33,12 +30,25 @@ To install and set up the project, follow next steps:
    git clone https://github.com/AnastasiaFl/habit-app.git
 
 ## Usage
-Provide instructions on how to use your project. Include code examples or explanations of how to interact with your project.
+To use the application please run it on your IDE or
+open terminal and go to root directory of the project, then write
+
+    python main.py
+
+The application should be started. Follow instructions placed in the console.
 
 ## Running Tests
-Explain how to run the project's unit tests. Include any test commands and requirements.
+To run the project's unit tests, please open terminal in the root directory of the project and 
+run tests using following commands:
 
-For example, if you're using unittest, you can run tests with:
-
+1. For running file_processor tests:
    ```sh
-   python -m unittest discover tests
+    python -m unittest tests/file_processor_tests.py
+         
+2. For running habit_processor tests:
+   ```sh
+    python -m unittest tests/habit_processor_tests.py 
+   
+3. For running checked_off_history_processor tests:
+    ```sh
+    python -m unittest tests/checked_off_history_processor_tests.py
