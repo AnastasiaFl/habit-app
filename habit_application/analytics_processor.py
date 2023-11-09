@@ -1,8 +1,9 @@
-from habit_processor import HabitProcessor
+from habit_application.habit_processor import HabitProcessor
+from utils.colors import BColors
 
 # global value of habit_processor for further manipulations
 habit_processor = HabitProcessor()
-
+colors = BColors()
 
 def find_longest_streak(habit):
     """
@@ -48,12 +49,13 @@ def list_habits_by_periodicity():
 
     """
     # Prompt the user to choose a periodicity.
+    print(f'{colors.QUESTION}Which periodicity would you like to choose:\n' + colors.ENDC)
     print('Which periodicity would you like to choose:\n'
           '1. Daily\n'
           '2. Weekly')
 
     # Read the user's input for periodicity.
-    users_input_periodicity = int(input('Please put the number: '))
+    users_input_periodicity = int(input(f'{colors.QUESTION}Please put the number: ' + colors.ENDC))
 
     # Check if the input is valid (1 for daily or 2 for weekly).
     if users_input_periodicity in [1, 2]:
@@ -71,10 +73,10 @@ def list_habits_by_periodicity():
 
         # If no habits match the chosen periodicity, inform the user.
         if count == 0:
-            print("You do not have habits of such periodicity")
+            print(f'{colors.WARNING}You do not have habits of such periodicity' + colors.ENDC)
     else:
         # Inform the user of an invalid input.
-        print("You have entered an invalid number")
+        print(f'{colors.WARNING}You have entered an invalid number' + colors.ENDC)
 
 
 def list_longest_streaks_for_habits():
@@ -91,7 +93,11 @@ def list_longest_streaks_for_habits():
     # Iterate through the habits and calculate the longest streak for each.
     for count, habit in enumerate(habits_list, start=1):
         longest_streak = find_longest_streak(habit)
-        print(f"{count}. {habit['task']} has the longest streak of {longest_streak} days")
+        period = habit["period"]
+        if period == '1':
+            print(f"{count}. {habit['task']} has the longest streak of {longest_streak} days")
+        elif period == '2':
+            print(f"{count}. {habit['task']} has the longest streak of {longest_streak} weeks")
 
 
 def get_longest_streak_for_habit():
@@ -106,12 +112,14 @@ def get_longest_streak_for_habit():
     habits_names = habit_processor.get_names_of_habits_from_list()
 
     # Display the list of all habits.
-    print('Here is the list of all habits:')
+    print(colors.HEADER + 'Here is the list of all habits:' + colors.ENDC)
     for x in range(len(habits_names)):
         print(f"{x + 1}. {habits_names[x]}")
 
     # Ask the user to select a habit by entering a number.
-    item_to_check = int(input('Put the number for which habit you would like to get the longest streak: '))
+    item_to_check = int(input(colors.QUESTION +
+                              'Put the number for which habit you would like to get the longest streak: '
+                              + colors.ENDC))
 
     # Check if the entered number is valid.
     if 1 <= item_to_check <= len(habits_names):
@@ -125,9 +133,13 @@ def get_longest_streak_for_habit():
         for habit in habits_list:
             if habit["id"] == habit_id:
                 longest_streak = find_longest_streak(habit)
-                print(f"{habit['task']} has the longest streak of {longest_streak} days")
+                period = habit["period"]
+                if period == '1':
+                    print(f"{habit['task']} has the longest streak of {longest_streak} days")
+                elif period == '2':
+                    print(f"{habit['task']} has the longest streak of {longest_streak} weeks")
     else:
-        print('You have passed an invalid value.')
+        print(colors.WARNING + 'You have passed an invalid value.' + colors.ENDC)
 
 
 def run_analytics():
@@ -144,7 +156,7 @@ def run_analytics():
           '4. Get the longest streak for one defined habit')
 
     # Ask the user to select an analytics option by entering a number.
-    users_input = int(input('Put a number for the desired operation: '))
+    users_input = int(input(colors.QUESTION + 'Put a number for the desired operation: ' + colors.ENDC))
 
     # Perform the selected analytics operation based on user input.
     if users_input == 1:
@@ -156,4 +168,4 @@ def run_analytics():
     elif users_input == 4:
         get_longest_streak_for_habit()
     else:
-        print('You have entered an invalid option.')
+        print(colors.WARNING + 'You have entered an invalid option.' + colors.ENDC)

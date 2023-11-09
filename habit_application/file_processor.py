@@ -16,6 +16,9 @@ class FileProcessor:
         with open('habit_application/data/habits.json', 'w') as file:
             # Serialize the content to JSON format and write it to the file with proper indentation.
             json.dump(content, file, indent=4)
+            file.close()
+
+        return
 
     @staticmethod
     def read_content():
@@ -27,4 +30,6 @@ class FileProcessor:
         with open('habit_application/data/habits.json', 'r') as file:
             # Deserialize the JSON content from the file and return it.
             habits_json = json.load(file)
-            return habits_json
+            file.close()
+
+        return habits_json

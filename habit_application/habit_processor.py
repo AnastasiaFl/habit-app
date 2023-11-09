@@ -2,6 +2,7 @@ from habit_application.checked_history_record import CheckedHistoryRecord
 from habit_application.habit import Habit
 from habit_application.file_processor import FileProcessor
 from datetime import datetime
+from utils.colors import BColors
 
 
 class HabitProcessor:
@@ -13,6 +14,7 @@ class HabitProcessor:
         Constructor of the HabitProcessor class
         """
         self.file_processor = FileProcessor()
+        self.colors = BColors()
 
     def create_habit(self, task: str, periodicity: int):
         """
@@ -43,7 +45,8 @@ class HabitProcessor:
         # Update the habits_json file
         self.file_processor.rewrite_content(habits_json)
 
-        print(f'You have successfully added a new habit: {task} with periodicity: {periodicity}')
+        print(f'{self.colors.OKGREEN}You have successfully added a new habit: ' + self.colors.ENDC)
+        print(f'{task} with periodicity: {periodicity}')
 
     def get_list_of_habits(self):
         """
@@ -101,7 +104,7 @@ class HabitProcessor:
         # Send the updated data to the file_processor to rewrite the file
         self.file_processor.rewrite_content(habits_json)
 
-        print(f'You have successfully deleted the habit: {habit_name}')
+        print(f'{self.colors.OKGREEN}You have successfully deleted the habit: ' + self.colors.ENDC + f'{habit_name}')
 
     def add_checked_history(self, habit_id):
         """
@@ -125,26 +128,32 @@ class HabitProcessor:
         period = int(habit["period"])
         if period == 1:
             if difference == 0:
-                print(f"You have already checked-off '{habit_name}' habit this day")
+                print(self.colors.WARNING + f"You have already checked-off '{habit_name}' habit this day"
+                      + self.colors.ENDC)
                 return
             elif difference > 1:
-                print(f"You have broken your '{habit_name}' habit")
+                print(self.colors.WARNING + f"You have broken your '{habit_name}' habit" + self.colors.ENDC)
                 checked_off_history_record.streak = 1
             elif difference == 1:
-                print(f"You have {checked_off_history_record.streak}-day streak for '{habit_name}' habit")
+                print(self.colors.OKGREEN +
+                      f"You have {checked_off_history_record.streak}-day streak for '{habit_name}' habit"
+                      + self.colors.ENDC)
             elif difference == -1:
-                print(f"It is your 1-day streak for '{habit_name}' habit")
+                print(self.colors.OKGREEN + f"It is your 1-day streak for '{habit_name}' habit" + self.colors.ENDC)
         elif period == 2:
             if 0 <= difference < 7:
-                print(f"You have already checked-off '{habit_name}' habit this week")
+                print(self.colors.OKGREEN + f"You have already checked-off '{habit_name}' habit this week"
+                      + self.colors.ENDC)
                 return
             elif difference >= 14:
-                print(f"You have broken your '{habit_name}' habit")
+                print(self.colors.WARNING + f"You have broken your '{habit_name}' habit" + self.colors.ENDC)
                 checked_off_history_record.streak = 1
             elif 7 <= difference < 14:
-                print(f"You have {checked_off_history_record.streak}-day streak for '{habit_name}' habit")
+                print(self.colors.OKGREEN +
+                      f"You have {checked_off_history_record.streak}-day streak for '{habit_name}' habit"
+                      + self.colors.ENDC)
             elif difference == -1:
-                print(f"It is your 1-day streak for '{habit_name}' habit")
+                print(self.colors.OKGREEN + f"It is your 1-day streak for '{habit_name}' habit"+ self.colors.ENDC)
 
         # Add history record
         history_records.append({
