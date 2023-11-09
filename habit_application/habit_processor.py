@@ -16,22 +16,23 @@ class HabitProcessor:
         self.file_processor = FileProcessor()
         self.colors = BColors()
 
-    def create_habit(self, task: str, periodicity: int):
+    def create_habit(self, task: str, periodicity: int, file_path: str):
         """
         Creates a new habit with provided task and periodicity, updates the habits_json file,
         and sends it to the file_processor.
 
         :param task: The name of the habit/task the user would like to be done periodically.
         :param periodicity: The periodicity of the habit.
+        :param file_path: The path to the file where habit would be created
         """
         # Get the id of the last tracked habit and increment it
-        habit_id = int(self.get_last_id()) + 1
+        habit_id = int(self.get_last_id(file_path)) + 1
 
         # Create a new habit object
         habit = Habit(habit_id, task, periodicity)
 
         # Read the existing habits data
-        habits_json = self.file_processor.read_content()
+        habits_json = self.file_processor.read_content(file_path)
 
         # Append the new habit to the list of habits
         habits_json['habits'].append({
@@ -43,76 +44,82 @@ class HabitProcessor:
         })
 
         # Update the habits_json file
-        self.file_processor.rewrite_content(habits_json)
+        self.file_processor.rewrite_content(habits_json, file_path)
 
         print(f'{self.colors.OKGREEN}You have successfully added a new habit: ' + self.colors.ENDC)
         print(f'{task} with periodicity: {periodicity}')
 
-    def get_list_of_habits(self):
+    def get_list_of_habits(self, file_path):
         """
         Retrieves the list of habits from content read by the file_processor.
 
+        :param file_path: The path to the file.
         :return: List of habit objects
         """
-        habits_json = self.file_processor.read_content()
+        habits_json = self.file_processor.read_content(file_path)
         return habits_json["habits"]
 
-    def get_names_of_habits_from_list(self):
+    def get_names_of_habits_from_list(self, file_path):
         """
         Retrieves a list of habit names from the list of habit objects.
 
+        :param file_path: The path to the file.
         :return: List of habit names
         """
-        habits_list = self.get_list_of_habits()
+        habits_list = self.get_list_of_habits(file_path)
         return [habit.get("task") for habit in habits_list]
 
-    def get_last_id(self):
+    def get_last_id(self, file_path):
         """
         Retrieves the ID of the last habit from the list of habit objects.
 
+        :param file_path: The path to the file.
         :return: ID of the last habit
         """
-        habits_json_body = self.get_list_of_habits()
+        habits_json_body = self.get_list_of_habits(file_path)
         latest_habit = habits_json_body[-1]
         return latest_habit["id"]
 
-    def get_habit_id_by_name(self, habit_name):
+    def get_habit_id_by_name(self, habit_name, file_path):
         """
         Retrieves an ID from the habit objects list by name.
 
         :param habit_name: The name of the habit/task the user would like to be done periodically.
+        :param file_path: The path to the file.
         :return: ID of the habit or None if not found
         """
-        habits_list = self.get_list_of_habits()
+        habits_list = self.get_list_of_habits(file_path)
         for habit in habits_list:
             if habit["task"] == habit_name:
                 return habit["id"]
         return None
 
-    def delete_habit(self, habit_name: str, habit_id: str):
+    def delete_habit(self, habit_name: str, habit_id: str, file_path):
         """
         Deletes a habit by ID and updates the habits JSON file.
 
         :param habit_name: The name of the habit/task to delete.
         :param habit_id: The ID of the habit to delete.
+        :param file_path: The path to the file.
         """
-        habits_json = self.file_processor.read_content()
+        habits_json = self.file_processor.read_content(file_path)
 
         # Create a new habits JSON file without the habit found by ID
         habits_json['habits'] = [record for record in habits_json['habits'] if record["id"] != habit_id]
 
         # Send the updated data to the file_processor to rewrite the file
-        self.file_processor.rewrite_content(habits_json)
+        self.file_processor.rewrite_content(habits_json, file_path)
 
         print(f'{self.colors.OKGREEN}You have successfully deleted the habit: ' + self.colors.ENDC + f'{habit_name}')
 
-    def add_checked_history(self, habit_id):
+    def add_checked_history(self, habit_id, file_path):
         """
         Check off a habit by ID, updating its checked history records.
 
         :param habit_id: ID of the habit to check off.
+        :param file_path: The path to the file.
         """
-        habits_json = self.file_processor.read_content()
+        habits_json = self.file_processor.read_content(file_path)
         habit = next((h for h in habits_json['habits'] if h["id"] == str(habit_id)))
 
         habit_name = habit["task"]
@@ -153,7 +160,7 @@ class HabitProcessor:
                       f"You have {checked_off_history_record.streak}-day streak for '{habit_name}' habit"
                       + self.colors.ENDC)
             elif difference == -1:
-                print(self.colors.OKGREEN + f"It is your 1-day streak for '{habit_name}' habit"+ self.colors.ENDC)
+                print(self.colors.OKGREEN + f"It is your 1-day streak for '{habit_name}' habit" + self.colors.ENDC)
 
         # Add history record
         history_records.append({
@@ -162,7 +169,7 @@ class HabitProcessor:
         })
 
         habit["checkedHistoryRecords"] = history_records
-        self.file_processor.rewrite_content(habits_json)
+        self.file_processor.rewrite_content(habits_json, file_path)
 
     @staticmethod
     def get_last_streak(habit):

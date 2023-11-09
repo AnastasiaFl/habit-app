@@ -1,9 +1,12 @@
 from habit_application.habit_processor import HabitProcessor
 from utils.colors import BColors
+from utils.file_path import FilePath
 
 # global value of habit_processor for further manipulations
 habit_processor = HabitProcessor()
 colors = BColors()
+file_path = FilePath()
+
 
 def find_longest_streak(habit):
     """
@@ -30,7 +33,7 @@ def list_all_habits():
 
     """
     # Get the list of habit names using the habit_processor.
-    habits_names = habit_processor.get_names_of_habits_from_list()
+    habits_names = habit_processor.get_names_of_habits_from_list(file_path.APP)
 
     # Print a header indicating the list of habits.
     print('Here is the list of all habits:')
@@ -60,7 +63,7 @@ def list_habits_by_periodicity():
     # Check if the input is valid (1 for daily or 2 for weekly).
     if users_input_periodicity in [1, 2]:
         # Get the list of all habits.
-        habits_list = habit_processor.get_list_of_habits()
+        habits_list = habit_processor.get_list_of_habits(file_path.APP)
 
         # Initialize a counter to number the displayed habits.
         count = 0
@@ -88,7 +91,7 @@ def list_longest_streaks_for_habits():
 
     """
     # Get the list of all habits.
-    habits_list = habit_processor.get_list_of_habits()
+    habits_list = habit_processor.get_list_of_habits(file_path.APP)
 
     # Iterate through the habits and calculate the longest streak for each.
     for count, habit in enumerate(habits_list, start=1):
@@ -109,7 +112,7 @@ def get_longest_streak_for_habit():
 
     """
     # Get the names of all habits.
-    habits_names = habit_processor.get_names_of_habits_from_list()
+    habits_names = habit_processor.get_names_of_habits_from_list(file_path.APP)
 
     # Display the list of all habits.
     print(colors.HEADER + 'Here is the list of all habits:' + colors.ENDC)
@@ -124,10 +127,10 @@ def get_longest_streak_for_habit():
     # Check if the entered number is valid.
     if 1 <= item_to_check <= len(habits_names):
         # Get the ID of the selected habit.
-        habit_id = habit_processor.get_habit_id_by_name(habits_names[item_to_check - 1])
+        habit_id = habit_processor.get_habit_id_by_name(habits_names[item_to_check - 1], file_path.APP)
 
         # Get the list of all habits.
-        habits_list = habit_processor.get_list_of_habits()
+        habits_list = habit_processor.get_list_of_habits(file_path.APP)
 
         # Find the selected habit and calculate its longest streak.
         for habit in habits_list:

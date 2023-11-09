@@ -1,0 +1,48 @@
+{
+    "habits": [
+        {
+            "id": "1",
+            "task": "Workout",
+            "createdAt": "2023-11-01T13:55:22.407898",
+            "period": "1",
+            "checkedHistoryRecords": [
+                {
+                    "occurredAt": "2023-11-07T16:15:22.406565",
+                    "streak": "1"
+                },
+                {
+                    "occurredAt": "2023-11-087T09:02:54.631976",
+                    "streak": "2"
+                }
+            ]
+        },
+        {
+            "id": "2",
+            "task": "Water plants",
+            "createdAt": "2023-10-11T12:50:20.407898",
+            "period": "2",
+            "checkedHistoryRecords": [
+                {
+                    "occurredAt": "2023-10-11T12:50:20.407898",
+                    "streak": "1"
+                },
+                {
+                    "occurredAt": "2023-10-19T13:55:22.408768",
+                    "streak": "2"
+                }
+            ]
+        },
+        {
+            "id": "3",
+            "task": "Brush my teeth",
+            "createdAt": "2023-10-11T12:50:20.407898",
+            "period": "1",
+            "checkedHistoryRecords": [
+                {
+                    "occurredAt": "2023-10-087T09:02:54.631976",
+                    "streak": "1"
+                }
+            ]
+        }
+    ]
+}

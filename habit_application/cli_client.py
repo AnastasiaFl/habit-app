@@ -1,6 +1,7 @@
 from habit_application import analytics_processor
 from habit_application.habit_processor import HabitProcessor
 from utils.colors import BColors
+from utils.file_path import FilePath
 
 
 class Client:
@@ -14,12 +15,13 @@ class Client:
         """
         self.habit_processor = HabitProcessor()
         self.colors = BColors()
+        self.file_path = FilePath()
 
     def create_new_habit_flow(self):
         """
         Collects data from the user to create a new habit, and sends valid data to the habit_processor.
         """
-        habits_names = self.habit_processor.get_names_of_habits_from_list()
+        habits_names = self.habit_processor.get_names_of_habits_from_list(self.file_path.APP)
         # Prompt the user for the name of the habit
         habit_name = input(f'{self.colors.QUESTION}Please write the name of the habit you would like to achieve: '
                            + self.colors.ENDC)
@@ -32,7 +34,7 @@ class Client:
             if duplicate:
                 print(f'{self.colors.WARNING}You already have this habit in your list' + self.colors.ENDC)
             else:
-                print(f'{self.colors.QUESTION}Which periodicity would you like to assign for this habit:\n'
+                print(f'{self.colors.QUESTION}Which periodicity would you like to assign for this habit:'
                       + self.colors.ENDC)
                 print('1. Daily\n'
                       '2. Weekly')
@@ -42,7 +44,7 @@ class Client:
 
                 # Check if the user entered a valid periodicity
                 if habit_periodicity and habit_periodicity in [1, 2]:
-                    self.habit_processor.create_habit(habit_name, habit_periodicity)
+                    self.habit_processor.create_habit(habit_name, habit_periodicity, self.file_path.APP)
                 else:
                     print(f'{self.colors.WARNING}You have entered an invalid number' + self.colors.ENDC)
         else:
@@ -55,7 +57,7 @@ class Client:
         """
         print(f'{self.colors.HEADER}Here is the list of all habits:' + self.colors.ENDC)
 
-        habits_names = self.habit_processor.get_names_of_habits_from_list()
+        habits_names = self.habit_processor.get_names_of_habits_from_list(self.file_path.APP)
 
         # List all available habits with their corresponding index
         for idx, habit_name in enumerate(habits_names, start=1):
@@ -69,10 +71,10 @@ class Client:
         # Check if the input is a valid integer within the range
         if 1 <= item_to_delete <= len(habits_names):
             habit_name = habits_names[item_to_delete - 1]
-            habit_id = self.habit_processor.get_habit_id_by_name(habit_name)
+            habit_id = self.habit_processor.get_habit_id_by_name(habit_name, self.file_path.APP)
 
             # Send the habit ID to the habit_processor for deletion
-            self.habit_processor.delete_habit(habit_name, habit_id)
+            self.habit_processor.delete_habit(habit_name, habit_id, self.file_path.APP)
         else:
             print(f'{self.colors.WARNING}You have entered an invalid number' + self.colors.ENDC)
 
@@ -82,7 +84,7 @@ class Client:
         and sends it to the habit_processor for checking off.
         """
         print(f'{self.colors.HEADER}Here is the list of all habits:' + self.colors.ENDC)
-        habits_names = self.habit_processor.get_names_of_habits_from_list()
+        habits_names = self.habit_processor.get_names_of_habits_from_list(self.file_path.APP)
 
         # List all available habits with their corresponding index
         for idx, habit_name in enumerate(habits_names, start=1):
@@ -96,7 +98,7 @@ class Client:
         # Check if the input is a valid integer within the range
         if 1 <= item_to_check_off <= len(habits_names):
             # Send the habit ID to the habit_processor for checking off
-            self.habit_processor.add_checked_history(item_to_check_off)
+            self.habit_processor.add_checked_history(item_to_check_off, self.file_path.APP)
         else:
             print(f'{self.colors.WARNING}You have entered an invalid number' + self.colors.ENDC)
 
